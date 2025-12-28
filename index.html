@@ -61,10 +61,19 @@
             transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .shatter-container:hover .char-1 { transform: translate(-45px, -25px) rotate(-15deg) scale(1.1); filter: blur(1px); opacity: 0.8; }
-        .shatter-container:hover .char-2 { transform: translate(-15px, -45px) rotate(12deg) scale(1.15); }
-        .shatter-container:hover .char-3 { transform: translate(25px, -55px) rotate(28deg) scale(1.1); filter: drop-shadow(0 0 15px var(--emerald)); }
-        .shatter-container:hover .char-4 { transform: translate(55px, -25px) rotate(-22deg) scale(1.15); filter: blur(1px); opacity: 0.8; }
+        @media (min-width: 768px) {
+            .shatter-container:hover .char-1 { transform: translate(-45px, -25px) rotate(-15deg) scale(1.1); }
+            .shatter-container:hover .char-2 { transform: translate(-15px, -45px) rotate(12deg) scale(1.15); }
+            .shatter-container:hover .char-3 { transform: translate(25px, -55px) rotate(28deg) scale(1.1); }
+            .shatter-container:hover .char-4 { transform: translate(55px, -25px) rotate(-22deg) scale(1.15); }
+        }
+
+        @media (max-width: 767px) {
+            .shatter-container:hover .char-1 { transform: translate(-15px, -10px) rotate(-10deg); }
+            .shatter-container:hover .char-2 { transform: translate(-5px, -20px) rotate(5deg); }
+            .shatter-container:hover .char-3 { transform: translate(10px, -25px) rotate(15deg); }
+            .shatter-container:hover .char-4 { transform: translate(20px, -10px) rotate(-10deg); }
+        }
 
         .mesh-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
@@ -80,11 +89,11 @@
         .float { animation: float-slow 6s ease-in-out infinite; }
     </style>
 </head>
-<body class="text-white min-h-screen flex items-center justify-center p-6 overflow-hidden">
+<body class="text-white min-h-screen flex items-center justify-center p-4 md:p-6 overflow-hidden">
 
     <div id="loader-overlay">
         <div class="rocket-container">
-            <i class="fa-solid fa-rocket text-emerald-500 text-7xl rotate-[-45deg] filter drop-shadow-[0_0_20px_rgba(16,185,129,0.6)]"></i>
+            <i class="fa-solid fa-rocket text-emerald-500 text-5xl md:text-7xl rotate-[-45deg] filter drop-shadow-[0_0_20px_rgba(16,185,129,0.6)]"></i>
             <div class="rocket-flame"></div>
         </div>
     </div>
@@ -92,18 +101,18 @@
     <div class="mesh-bg" id="mesh"></div>
 
     <div class="fixed inset-0 pointer-events-none opacity-20">
-        <div class="absolute top-[20%] left-[10%] float text-emerald-400 text-6xl">
+        <div class="absolute top-[10%] left-[10%] float text-emerald-400 text-4xl md:text-6xl">
             <i class="fa-solid fa-star"></i>
         </div>
-        <div class="absolute bottom-[20%] right-[10%] float text-white text-7xl" style="animation-delay: 2s;">
+        <div class="absolute bottom-[10%] right-[10%] float text-white text-5xl md:text-7xl" style="animation-delay: 2s;">
             <i class="fa-solid fa-sparkles"></i>
         </div>
     </div>
 
     <main class="relative z-10 w-full max-w-6xl">
-        <div class="flex flex-col items-center text-center space-y-12">
+        <div class="flex flex-col items-center text-center space-y-8 md:space-y-12">
             
-            <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-400 text-[10px] font-bold tracking-[0.4em] uppercase">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-400 text-[9px] md:text-[10px] font-bold tracking-[0.2em] md:tracking-[0.4em] uppercase">
                 <span class="relative flex h-2 w-2">
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -112,46 +121,43 @@
             </div>
 
             <div class="space-y-2 shatter-container cursor-default group">
-                <h1 class="text-8xl md:text-[12rem] font-bold tracking-tighter leading-none hero-text select-none">
+                <h1 class="text-7xl sm:text-8xl md:text-[12rem] font-bold tracking-tighter leading-none hero-text select-none">
                     <span class="char-1 text-white">2</span><span class="char-2 text-white">0</span><span class="char-3 text-emerald-500">2</span><span class="char-4 text-emerald-500">6</span>
                 </h1>
-                <p class="text-emerald-500/50 text-sm md:text-base font-medium tracking-[1em] uppercase transition-opacity duration-500 group-hover:opacity-20">Counting Down To A New Chapter</p>
+                <p class="text-emerald-500/50 text-[10px] md:text-base font-medium tracking-[0.5em] md:tracking-[1em] uppercase transition-opacity duration-500 group-hover:opacity-20 px-4">Counting Down To A New Chapter</p>
             </div>
 
-            <div id="timer" class="flex flex-wrap justify-center gap-8 md:gap-16 pt-8">
+            <div id="timer" class="grid grid-cols-2 md:flex md:flex-wrap justify-center gap-6 md:gap-16 pt-4 md:pt-8 w-full max-w-md md:max-w-none">
                 <div class="text-center group">
-                    <div id="days" class="mono text-6xl md:text-8xl font-light mb-2 group-hover:text-emerald-400 transition-colors">00</div>
-                    <div class="text-[10px] uppercase tracking-[0.5em] text-slate-500 font-bold">Days</div>
+                    <div id="days" class="mono text-5xl md:text-8xl font-light mb-1 md:mb-2 group-hover:text-emerald-400 transition-colors">00</div>
+                    <div class="text-[9px] md:text-[10px] uppercase tracking-[0.3em] md:tracking-[0.5em] text-slate-500 font-bold">Days</div>
                 </div>
-                <div class="hidden md:block text-6xl md:text-8xl font-thin text-slate-800 self-start">:</div>
                 <div class="text-center group">
-                    <div id="hours" class="mono text-6xl md:text-8xl font-light mb-2 group-hover:text-emerald-400 transition-colors">00</div>
-                    <div class="text-[10px] uppercase tracking-[0.5em] text-slate-500 font-bold">Hours</div>
+                    <div id="hours" class="mono text-5xl md:text-8xl font-light mb-1 md:mb-2 group-hover:text-emerald-400 transition-colors">00</div>
+                    <div class="text-[9px] md:text-[10px] uppercase tracking-[0.3em] md:tracking-[0.5em] text-slate-500 font-bold">Hours</div>
                 </div>
-                <div class="hidden md:block text-6xl md:text-8xl font-thin text-slate-800 self-start">:</div>
                 <div class="text-center group">
-                    <div id="minutes" class="mono text-6xl md:text-8xl font-light mb-2 group-hover:text-emerald-400 transition-colors">00</div>
-                    <div class="text-[10px] uppercase tracking-[0.5em] text-slate-500 font-bold">Minutes</div>
+                    <div id="minutes" class="mono text-5xl md:text-8xl font-light mb-1 md:mb-2 group-hover:text-emerald-400 transition-colors">00</div>
+                    <div class="text-[9px] md:text-[10px] uppercase tracking-[0.3em] md:tracking-[0.5em] text-slate-500 font-bold">Minutes</div>
                 </div>
-                <div class="hidden md:block text-6xl md:text-8xl font-thin text-slate-800 self-start">:</div>
                 <div class="text-center group">
-                    <div id="seconds" class="mono text-6xl md:text-8xl font-bold text-emerald-500 mb-2 timer-glow">00</div>
-                    <div class="text-[10px] uppercase tracking-[0.5em] text-emerald-500 font-black">Seconds</div>
+                    <div id="seconds" class="mono text-5xl md:text-8xl font-bold text-emerald-500 mb-1 md:mb-2 timer-glow">00</div>
+                    <div class="text-[9px] md:text-[10px] uppercase tracking-[0.3em] md:tracking-[0.5em] text-emerald-500 font-black">Seconds</div>
                 </div>
             </div>
 
-            <div class="pt-16 grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-white/5 w-full max-w-4xl">
+            <div class="pt-8 md:pt-16 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12 border-t border-white/5 w-full max-w-4xl px-4">
                 <div class="flex items-center justify-center gap-4 text-slate-500 hover:text-white transition-colors cursor-pointer group">
-                    <i class="fa-solid fa-clock-rotate-left text-xl group-hover:text-emerald-500 transition-colors"></i>
-                    <span class="text-xs uppercase tracking-widest font-bold">Precision Sync</span>
+                    <i class="fa-solid fa-clock-rotate-left text-lg md:text-xl group-hover:text-emerald-500 transition-colors"></i>
+                    <span class="text-[9px] md:text-xs uppercase tracking-widest font-bold">Precision Sync</span>
                 </div>
                 <div class="flex items-center justify-center gap-4 text-slate-500 hover:text-emerald-400 transition-colors cursor-pointer group">
-                    <i class="fa-solid fa-fire-glow text-xl text-emerald-500"></i>
-                    <span class="text-xs uppercase tracking-widest font-bold">Happy New Year</span>
+                    <i class="fa-solid fa-fire-glow text-lg md:text-xl text-emerald-500"></i>
+                    <span class="text-[9px] md:text-xs uppercase tracking-widest font-bold">Happy New Year</span>
                 </div>
                 <div class="flex items-center justify-center gap-4 text-slate-500 hover:text-white transition-colors cursor-pointer group">
-                    <i class="fa-solid fa-earth-africa text-xl group-hover:text-emerald-500 transition-colors"></i>
-                    <span class="text-xs uppercase tracking-widest font-bold">Global Event</span>
+                    <i class="fa-solid fa-earth-africa text-lg md:text-xl group-hover:text-emerald-500 transition-colors"></i>
+                    <span class="text-[9px] md:text-xs uppercase tracking-widest font-bold">Global Event</span>
                 </div>
             </div>
         </div>
@@ -184,14 +190,19 @@
             const m = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
             const s = Math.floor((gap % (1000 * 60)) / 1000);
 
-            document.getElementById('days').innerText = String(Math.max(0, d)).padStart(2, '0');
-            document.getElementById('hours').innerText = String(Math.max(0, h)).padStart(2, '0');
-            document.getElementById('minutes').innerText = String(Math.max(0, m)).padStart(2, '0');
-            document.getElementById('seconds').innerText = String(Math.max(0, s)).padStart(2, '0');
+            const dEl = document.getElementById('days');
+            const hEl = document.getElementById('hours');
+            const mEl = document.getElementById('minutes');
+            const sEl = document.getElementById('seconds');
+
+            if(dEl) dEl.innerText = String(Math.max(0, d)).padStart(2, '0');
+            if(hEl) hEl.innerText = String(Math.max(0, h)).padStart(2, '0');
+            if(mEl) mEl.innerText = String(Math.max(0, m)).padStart(2, '0');
+            if(sEl) sEl.innerText = String(Math.max(0, s)).padStart(2, '0');
 
             if (gap < 0) {
                 clearInterval(interval);
-                document.querySelector('main').innerHTML = `<h1 class="text-8xl font-black italic animate-pulse">2026 IS HERE!</h1>`;
+                document.querySelector('main').innerHTML = `<h1 class="text-5xl md:text-8xl font-black italic animate-pulse">2026 IS HERE!</h1>`;
             }
         }
         const interval = setInterval(updateTimer, 1000);
